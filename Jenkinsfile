@@ -15,7 +15,7 @@ pipeline {
 
         always {
             junit testResults: 'target/surefire-reports/*.xml',
-                   allowEmptyResults: true
+                    allowEmptyResults: true
         }
 
         success {
@@ -26,9 +26,9 @@ pipeline {
                 result: 'SUCCESS'
             )
 
-            telegramSend(
-                message: '✅ Pipeline exitoso'
-            )
+            sh '''
+            curl -s -X POST "https://api.telegram.org/bot8789165695:AAH5pSsZIS6j451hkOLrx4vjXq9h_vWlFS8/sendMessage" -d "chat_id=5692406827" -d "text=✅ Pipeline exitoso"
+            '''
         }
 
         failure {
@@ -39,9 +39,9 @@ pipeline {
                 result: 'FAILURE'
             )
 
-            telegramSend(
-                message: '❌ Pipeline falló'
-            )
+            sh '''
+            curl -s -X POST "https://api.telegram.org/bot8789165695:AAH5pSsZIS6j451hkOLrx4vjXq9h_vWlFS8/sendMessage" -d "chat_id=5692406827" -d "text=❌ Pipeline falló"
+            '''
         }
     }
 }
