@@ -26,6 +26,12 @@ pipeline {
                 result: 'SUCCESS'
             )
 
+            mail(
+                to: 'johanacero2509@gmail.com',
+                subject: 'Jenkins - Pipeline exitoso',
+                body: 'El pipeline se ejecutó correctamente'
+            )
+
             sh '''
             curl -s -X POST "https://api.telegram.org/bot8789165695:AAH5pSsZIS6j451hkOLrx4vjXq9h_vWlFS8/sendMessage" -d "chat_id=5692406827" -d "text=✅ Pipeline exitoso"
             '''
@@ -37,6 +43,12 @@ pipeline {
                 title: 'Jenkins',
                 description: '❌ Pipeline falló',
                 result: 'FAILURE'
+            )
+
+            mail(
+                to: 'johanacero2509@gmail.com',
+                subject: 'Jenkins - Pipeline falló',
+                body: 'El pipeline falló'
             )
 
             sh '''
